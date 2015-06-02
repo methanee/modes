@@ -1,0 +1,72 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            name = "forge"
+            url = "http://files.minecraftforge.net/maven"
+        }
+        maven {
+            name = "sonatype"
+            url = "https://oss.sonatype.org/content/repositories/snapshots/"
+        }
+    }
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
+    }
+}
+ 
+apply plugin: 'forge'
+ 
+version = "1.7.10-1.0"
+ 
+targetCompatibility = 1.6
+sourceCompatibility = 1.6
+ 
+group= "net.methanee.Lolmod"
+archivesBaseName = "Lolmod"
+ 
+minecraft {
+    version = "1.7.10-10.13.0.1170"
+    assetDir = "jars/assets"
+}
+ 
+processResources
+{
+    // replace stuff in mcmod.info, nothing else
+    from(sourceSets.main.resources.srcDirs) {
+        include 'mcmod.info'
+               
+        // replace version and mcversion
+        expand 'version':project.version, 'mcversion':project.minecraft.version
+    }
+       
+    // copy everything else, thats not the mcmod.info
+    from(sourceSets.main.resources.srcDirs) {
+        exclude 'mcmod.info'
+    }
+}
+ 
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allSource
+    classifier = 'src'
+    appendix = project.minecraft.version
+}
+ 
+task deobfJar(type: Jar) {
+    from sourceSets.main.output
+    from (sourceSets.main.allSource.srcDirs) {
+        include '**/*.java'
+    }
+        classifier = 'dev'
+    appendix = project.minecraft.version
+}
+ 
+jar {
+    appendix = project.minecraft.version
+}
+ 
+artifacts {
+        archives jar
+    archives sourcesJar
+    archives deobfJar
+}

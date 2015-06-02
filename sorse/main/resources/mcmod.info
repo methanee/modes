@@ -1,0 +1,21 @@
+[
+{
+  "modid": "LolMod",
+  "name": "Lol Mod",
+  "description": "methanee test mod ",
+  "version": "1.0",
+  "mcversion": "1.7.10",
+  "url": "",
+  "updateUrl": "",
+  "authorList": [
+    "methanee"
+  ],
+  "credits": "to all the durps in TS ",
+  "logoFile": "",
+  "screenshots": [
+  ],
+  "parent":"",
+  "dependencies": [
+  ]
+}
+]
